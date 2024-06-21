@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{%include 'sidebar.html' %}
+        <!-- Content Start -->
+        <div class="content">
+            <!-- Navbar Start -->
+            <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                    <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
+                </a>
+                <a href="#" class="sidebar-toggler flex-shrink-0">
+                    <i class="fa fa-bars"></i>
+                </a>
+                <form class="d-none d-md-flex ms-4">
+                    <input class="form-control border-0" type="search" placeholder="Search">
+                </form>
+            </nav>
+
+            <div class="container-fluid pt-4 px-4">
+
+    
+            </div>
+    
+            <div class="container-fluid pt-4 px-4">
+                <div class="bg-light text-center rounded p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h6 class="mb-0">Bookings</h6>
+                        <a href="">Show All</a>
+                    </div>
+                    <div class="table-responsive">
+                    <form action="{% url 'customers' %}" method="post">
+                     {% csrf_token %}
+                     {% include 'messages.html' %}
+                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+                            <thead>
+                                <tr class="text-dark">
+                                    <!--<th scope="col"><input class="form-check-input" type="checkbox"></th>-->
+                                    <th scope="col">First Name</th>
+                                    <th scope="col">Second Name</th>
+                                    <th scope="col">Phone. Number</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Time</th>
+                                
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for book in page_obj %}
+                                <tr>
+                               
+                                    <td >{{book.first_name}}</td>
+                                    <td>{{book.second_name}}</td>
+                                    <td>{{book.phone_number}}</td>
+                                    <td>{{book.book_date}}</td>
+                                    <td>{{book.book_time}}</td>
+                                    
+                                    <td><a class="btn btn-sm btn-primary"href="{% url 'delete_bookings' book.id %}">Delete</a></td>
+                                </tr>
+                            {% endfor %}
+    
+                            </tbody>
+                        </table>
+                    </form>
+                    </div>
+                </div>
+
+                <div class="pagination-container pt-2">
+                    <div class="row">
+        
+                        <div class="col-md-9">
+                            Showing page {{page_obj.number}} of {{ page_obj.paginator.num_pages }}
+                          </div>
+                          <ul class="pagination align-right float-right mr-auto , col-md-3">
+                            {% if page_obj.has_previous %}
+                            <li {% if page_obj.number == 1 %} class="page-item active" {% endif %}><a class="page-link" href="?page=1">&laquo; 1</a></li>
+                            <li class="page-item"> <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+                            {% endif %}
+                      
+                            {% if page_obj.has_next %}
+                            <li class="page-item"> <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+                            <li class="page-item"> <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages}} &raquo;</a></li>
+                            {% endif %}
+                            </ul>
+    
+                    </div>
+        
+                </div>
+            </div>
+                
+{% endblock %}

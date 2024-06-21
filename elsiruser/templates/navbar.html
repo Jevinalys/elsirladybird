@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+<style>
+  .hello-msg{
+    font-size: 18pf;
+    color: #fff;
+    margin-right: 20px;
+  }
+  .btn-lady{
+   background-color:  #e86aa7
+  }
+  .bg-drk{
+    background-color:  #221530
+  }
+</style>
+</head>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-drk">
+    <a class="navbar-brand" href="#">LadyBird</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <!--{% if request.user.is_anonymous %}
+        <a class="nav-item nav-link active" href="">Home</a>
+        <a class="nav-item nav-link" href="">Services</a>
+        <a class="nav-item nav-link" href="">Contact</a>-->
+    
+       <!-- {% elif request.user.is_staff %}-->
+        <a class="nav-item nav-link active" href="">Home</a>
+        <a class="nav-item nav-link" href="">Services</a>
+        <a class="nav-item nav-link" href="">Training</a>
+        <!--{% endif %}-->
+      </div>
+    </div>
+    
+      <a class="btn btn-lady btn-social mx-2" href="https://instagram.com/ladybird_nailspa?igshid=NzZlODBkYWE4Ng==" aria-label="instagram"><i class="fab fa-instagram"></i></a>
+      <a class="btn btn-lady btn-social mx-2" href="https://www.facebook.com/profile.php?id=100088176766028" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+    
+   {% if request.user.is_anonymous %}
+    <span ><a class="hello-msg"  href="">LogIn</a></span>
+
+   {% else %}
+    <span class="hello-msg">Hello</span>
+    <span ><a class="hello-msg"  href="">Logout</a></span>
+   {% endif %}
+  
+  </nav>
+  </html>

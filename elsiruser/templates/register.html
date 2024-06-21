@@ -1,0 +1,125 @@
+{% extends 'base_auth.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<div class="row">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+    <div class="card mt-5">
+
+
+      <div class="card-body">
+        <div class="card-title py-3">
+          <h4>Sign Up</h4>
+        </div>
+        <form action="{% url 'register_user' %}" method="post">
+          {% csrf_token %}
+
+          {% include 'messages.html' %}
+
+          <div class="form-group">
+            <input
+              type="text"
+              name="username"
+              placeholder="username"
+              id="usernameField"
+              value="{{fieldValues.username}}"
+              class="form-control form-control-sm"
+            />
+          </div>
+          <div class="invalid_feedback invalid-feedback" style="display:none"></div>
+          <p class="text-sm text-success usernameSuccessOutput"></p>
+          
+          <div class="form-group">
+            <input
+              type="text"
+              name="firstname"
+              placeholder="firstname"
+              id="firstnameField"
+              value="{{fieldValues.firstname}}"
+              class="form-control form-control-sm"
+            />
+          </div>
+          <div class="firstaNamefeedback invalid-feedback" style="display:none">
+          </div>
+          <p class="text-sm text-success firstnameSuccessOutput"></p>
+
+          <div class="form-group">
+            <input
+              type="text"
+              name="secondname"
+              placeholder="Second Name"
+              id="secondnameField"
+              value="{{fieldValues.secondname}}"
+              class="form-control form-control-sm"
+            />
+          </div>
+          <div class="secondNamefeedback invalid-feedback" style="display:none">
+          </div>
+          <p class="text-sm text-success secondnameSuccessOutput"></p>
+
+          <div class="form-group">
+            <input
+              type="text"
+              name="phoneNo"
+              placeholder="Phone Number"
+              id="phoneNumberField"
+              value="{{fieldValues.phoneNo}}"
+              class="form-control form-control-sm"
+            />
+          </div>
+          <div class="phonefeedback invalid-feedback" style="display:none">
+          </div>
+          <p class="text-sm text-success phoneNoSuccessOutput"></p>
+
+
+          <div class="form-group mb-3">
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              class="form-control form-control-sm"
+              id="emailField"
+              value="{{fieldValues.email}}"
+            />
+          </div>
+          <div class="emailFeedBackArea invalid-feedback" style="display:none">
+          </div>
+          <p class="text-sm text-success emailSuccessOutput"></p>
+
+          <div class="form-group">
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              class="form-control form-control-sm"
+              id="passwordField"
+            />
+            <small class="float-right py-3 showPasswordToggle">SHOW</small>
+          </div>
+
+          <div class="form-group mt-3">
+            <input
+              type="password"
+              name="password2"
+              placeholder="Confirm Password"
+              class="form-control form-control-sm"
+              id="passwordField2"
+            />
+          </div> 
+          <input type="submit" value="Register" class="btn btn-block btn-primary submit-btn mt-2" />
+        </form>
+
+      </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4"></div>
+</div>
+
+{% include 'ajaxUserValidation.html' %}
+
+{% endblock content %}

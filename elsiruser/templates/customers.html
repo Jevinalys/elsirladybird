@@ -1,0 +1,174 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{%include 'sidebar.html' %}
+<!-- Content Start -->
+<div class="content">
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+        <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+            <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
+        </a>
+        <a href="#" class="sidebar-toggler flex-shrink-0">
+            <i class="fa fa-bars"></i>
+        </a>
+        <form class="d-none d-md-flex ms-4">
+            <input class="form-control border-0" type="search" placeholder="Search">
+        </form>
+    </nav>
+
+
+    <br>
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-sm-3">
+                <h5 class="text-center alert alert-info">Add/Update Customer</h5>
+                <form action="" method="POST" name="cform" id="cform">
+                    {% csrf_token %}
+
+                    {% include 'messages.html' %}
+                    <input type="hidden" name="customerid" id="customerid" />
+                    {{form.as_p}}
+
+                    <input type="button" class="btn btn-success" value="Save" id="btnsave">
+                    <!--<input type="button" value="Delete" class="btn btn-danger btn-del" id="delbutton" data-sid="{{customers.id}}">-->
+
+                </form>
+
+
+            </div>
+
+
+            <div class="bg-light text-center rounded p-4 col-sm-9">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h6 class="mb-0">Customers</h6>
+                        <a href="">Show All</a>
+                    </div>
+
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name1</th>
+                                <th scope="col">Name2</th>
+                                <th scope="col">Phone</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Debt</th>
+                                <th scope="col">Points</th>
+                                <th scope="col">Action</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody">
+                            {% for customer in page_obj %}
+                            <tr>
+                                <td>{{customer.first_name}}</td>
+                                <td>{{customer.second_name}}</td>
+                                <td>{{customer.phone}}</td>
+                                <td>{{customer.email_address}}</td>
+                                <td>{{customer.debt}}</td>
+                                <td>{{customer.loyalty_points}}</td>
+                                <td><a class="btn btn-sm btn-primary" id="addpayment" href="{% url 'addSales' customer.id %}" >Pay</a></td>
+                                <!--<td> <input type="button" value="Pay" class="btn btn-sm btn-success" data-sid="{{customer.id}}"></td>-->
+                                   <td> <input type="button" value="Edit" class="btn btn-warning btn-sm btn-edit" data-sid="{{customer.id}}"></td>
+                            </tr>
+    
+    
+                            {% endfor %}
+                        </tbody>
+    
+                    </table>
+
+                    <div class="pagination-container pt-2">
+                        <div class="row">
+            
+                            <div class="col-md-9">
+                                Showing page {{page_obj.number}} of {{ page_obj.paginator.num_pages }}
+                              </div>
+                              <ul class="pagination align-right float-right mr-auto , col-md-3">
+                                {% if page_obj.has_previous %}
+                                <li {% if page_obj.number == 1 %} class="page-item active" {% endif %}><a class="page-link" href="?page=1">&laquo; 1</a></li>
+                                <li class="page-item"> <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+                                {% endif %}
+                          
+                                {% if page_obj.has_next %}
+                                <li class="page-item"> <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+                                <li class="page-item"> <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages}} &raquo;</a></li>
+                                {% endif %}
+                                </ul>
+        
+                        </div>
+            
+                    </div>
+
+            </div>
+
+
+    <!-- <div class="container-fluid pt-4 px-4">
+
+            <div class="col-sm-6 col-xl-3">
+                <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                    <ol class="breadcrumb"> 
+                        <li class="breadcrumb-item">Customer</li>                             
+                    </ol>
+                    <div class="ms-3">
+                        <nav aria-label="breadcrumb">
+                     
+                            <a href="{% url 'addCustomer' %}"> <button type="button" class="btn btn-primary">Add Customer</button> </a>                                 
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+        </div>-->
+
+    <!--<div class="container-fluid pt-4 px-4">
+            <div class="bg-light text-center rounded p-4">
+                <div class="d-flex align-items-center justify-content-between mb-4">
+                    <h6 class="mb-0">Customers</h6>
+                    <a href="">Show All</a>
+                </div>
+                <div class="table-responsive">
+                <form action="{% url 'customers' %}" method="post">
+                 {% csrf_token %}
+                    <table class="table text-start align-middle table-bordered table-hover mb-0">
+                        <thead>
+                            <tr class="text-dark">-->
+    <!--<th scope="col"><input class="form-check-input" type="checkbox"></th>-->
+    <!-- <th scope="col">First Name</th>
+                                <th scope="col">Second Name</th>
+                                <th scope="col">Phone. No.</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Debt</th>
+                                <th scope="col">Loyalty Points</th>
+                                <th scope="col">Add Payment</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for customer in customers %}
+                            <tr id="customerinfo" data-id="{{customer.id}}">-->
+    <!--<td><input class="form-check-input" type="checkbox"></td>-->
+    <!--<td >{{customer.first_name}}</td>
+                                <td>{{customer.second_name}}</td>
+                                <td>{{customer.phone}}</td>
+                                <td>{{customer.email_address}}</td>
+                                <td>{{customer.Debt}}</td>
+                                <td>{{customer.Points}}</td>
+                                <td><a class="btn btn-sm btn-primary" id="addpayment" href="{% url 'addSales' customer.id %}">Add Payment</a></td>
+                            </tr>
+                            {% endfor %}
+
+                        </tbody>
+                    </table>
+                </form>
+                </div>
+            </div>
+        </div>-->
+    <!-- Recent Sales End -->
+    
+
+    {% include 'ajaxcustomer.html' %}
+
+    {% endblock %}

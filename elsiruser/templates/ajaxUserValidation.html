@@ -1,0 +1,200 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+    const feedBackArea = document.querySelector('.invalid_feedback')
+    const firstNamefeedBackArea = document.querySelector('.firstNamefeedback')
+    const phonefeedBackArea = document.querySelector('.phonefeedback')
+    const showPasswordToggle = document.querySelector('.showPasswordToggle')
+    const emailFeedBackArea = document.querySelector('.emailFeedBackArea')
+    const secondNamefeedBackArea = document.querySelector('.secondNamefeedback')
+    const usernameSuccessOutput = document.querySelector(".usernameSuccessOutput")
+    const emailSuccessOutput = document.querySelector(".emailSuccessOutput")
+    const phoneNoSuccessOutput = document.querySelector(".phoneNoSuccessOutput")
+    const submitBtn = document.querySelector(".submit-btn");
+
+
+    $('#firstnameField').keyup(function () {
+
+        const firstnameVal = $("#firstnameField").val();
+
+        firstnameField.classList.remove("is-invalid");
+        firstNamefeedBackArea.style.display = "none";
+
+        mydata = { firstname: firstnameVal }
+
+        if (firstnameVal.length > 0) {
+
+            $.ajax({
+                url: "{% url 'firstnameValidation' %}",
+                method: "POST",
+                data: mydata,
+
+                success: function (data) {
+
+                    if (data.name_error) {
+                        firstnameField.classList.add("is-invalid");
+                        firstNamefeedBackArea.style.display = "block";
+                        firstNamefeedBackArea.innerHTML = `<p>${data.name_error}</p>`;
+                        submitBtn.disabled = true;
+                    }else{
+                        submitBtn.removeAttribute("disabled");
+                    }
+                },
+            })
+        }
+    })
+
+    $('#secondnameField').keyup(function () {
+
+        const secondnameVal = $("#secondnameField").val();
+
+        secondnameField.classList.remove("is-invalid");
+        secondNamefeedBackArea.style.display = "none";
+
+        mydata = { secondname: secondnameVal }
+
+        if (secondnameVal.length > 0) {
+
+            $.ajax({
+                url: "{% url 'secondnameValidation' %}",
+                method: "POST",
+                data: mydata,
+
+                success: function (data) {
+
+                    if (data.name_error) {
+                        secondnameField.classList.add("is-invalid");
+                        secondNamefeedBackArea.style.display = "block";
+                        secondNamefeedBackArea.innerHTML = `<p>${data.name_error}</p>`;
+                        submitBtn.disabled = true;
+                    }else{
+                        submitBtn.removeAttribute("disabled");
+                    }
+                },
+            })
+        }
+    })
+
+    $('#phoneNumberField').keyup(function () {
+
+        const phoneNoVal = $("#phoneNumberField").val();
+
+        phoneNoSuccessOutput.style.display = "block";
+        phoneNoSuccessOutput.textContent = `Checking  ${phoneNoVal}`;
+
+        phoneNumberField.classList.remove("is-invalid");
+        phonefeedBackArea.style.display = "none";
+
+        mydata = { phoneNo: phoneNoVal }
+
+        if (phoneNoVal.length > 0) {
+
+            $.ajax({
+                url: "{% url 'phoneValidation' %}",
+                method: "POST",
+                data: mydata,
+
+                success: function (data) {
+
+                    phoneNoSuccessOutput.style.display = "none";
+                    if (data.phone_error) {
+                        phoneNumberField.classList.add("is-invalid");
+                        phonefeedBackArea.style.display = "block";
+                        phonefeedBackArea.innerHTML = `<p>${data.phone_error}</p>`;
+                        submitBtn.disabled = true;
+                    }else{
+                        submitBtn.removeAttribute("disabled");
+                    }
+                },
+            })
+        }
+    })
+
+    $('#emailField').keyup(function () {
+
+        const emailVal = $("#emailField").val();
+
+        emailSuccessOutput.style.display = "block";
+        emailSuccessOutput.textContent = `Checking  ${emailVal}`;
+
+        emailField.classList.remove("is-invalid");
+        emailFeedBackArea.style.display = "none";
+
+        mydata = { email: emailVal }
+
+        if (emailVal.length > 0) {
+
+            $.ajax({
+                url: "{% url 'emailValidation' %}",
+                method: "POST",
+                data: mydata,
+
+                success: function (data) {
+
+                    emailSuccessOutput.style.display = "none";
+                    if (data.email_error) {
+                        emailField.classList.add("is-invalid");
+                        emailFeedBackArea.style.display = "block";
+                        emailFeedBackArea.innerHTML = `<p>${data.email_error}</p>`;
+                        submitBtn.disabled = true;
+                    }else{
+                        submitBtn.removeAttribute("disabled");
+                    }
+                },
+            })
+        }
+    })
+
+
+    $('.showPasswordToggle').click(function () {
+
+        if (showPasswordToggle.textContent === "SHOW") {
+            showPasswordToggle.textContent = "HIDE";
+            passwordField2.setAttribute("type", "text");
+            passwordField.setAttribute("type", "text");
+        }
+        else {
+            
+            showPasswordToggle.textContent = "SHOW";
+            passwordField.setAttribute("type", "password");
+            passwordField2.setAttribute("type", "password");
+        }
+    
+    })
+
+    $('#usernameField').keyup(function () {
+
+        const usernameVal = $("#usernameField").val();
+
+        usernameSuccessOutput.style.display = "block";
+        usernameSuccessOutput.textContent = `Checking  ${usernameVal}`;
+
+        usernameField.classList.remove("is-invalid");
+        feedBackArea.style.display = "none";
+
+        mydata = { username: usernameVal }
+
+        if (usernameVal.length > 0) {
+
+            $.ajax({
+                url: "{% url 'usernameValidation' %}",
+                method: "POST",
+                data: mydata,
+
+                success: function (data) {
+
+                    usernameSuccessOutput.style.display = "none";
+                    if (data.username_error) {
+                        usernameField.classList.add("is-invalid");
+                        feedBackArea.style.display = "block";
+                        feedBackArea.innerHTML = `<p>${data.username_error}</p>`;
+                        submitBtn.disabled = true;
+                    }else{
+                        submitBtn.removeAttribute("disabled");
+                    }
+                },
+            })
+        }
+    })
+
+</script>

@@ -1,0 +1,21 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+    // Select time
+    $('#timeID').change(function(){
+
+    let selectedtime =$("#timeID").val();
+    let selecteddate =$("#book_date").val();
+    
+    mydata = {timeid:selectedtime,dateid:selecteddate}
+
+    $.ajax({
+        url: "{% url 'updatetime' %}",
+        method:"POST",
+        data:mydata,
+
+    })
+})
+
+
+</script>

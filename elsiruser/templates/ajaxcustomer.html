@@ -1,0 +1,114 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+    // Save data
+    $('#btnsave').click(function () {
+        output = "";
+        let custid = $('#customerid').val();
+        let fname = $('#fnameid').val();
+        let sname = $('#snameid').val();
+        let phone = $('#phoneid').val();
+        let mail = $('#mailid').val();
+
+        //console.log(sid);
+
+        if (fname == "") {
+            console.log("Please Enter First Name");
+        } else if (sname == "") {
+            console.log("Please Enter Second Name");
+        } else if (phone == "") {
+            console.log("Please Enter Phone Number");
+        } else {
+            console.log(fname);
+
+            mydata = { customerid: custid, first_name: fname, second_name: sname, phone: phone, email_address: mail };
+
+            $.ajax({
+                url: "{% url 'addCustomer' %}",
+                method: "POST",
+                data: mydata,
+
+                success: function (data) {
+                    //console.log(data.status)}
+                    customerList = data.customer_data;
+
+                    if (data.status == 'Data Saved') {
+                        console.log('Customer Saved successfully');
+
+                        for (i = 1; i < customerList.length; i++) {
+                            output += "<tr><td>" + customerList[i].first_name +
+                                "</td><td>" + customerList[i].second_name +
+                                "</td><td>" + customerList[i].phone +
+                                "</td><td>" + customerList[i].email_address +
+                                "</td><td>" + customerList[i].debt +
+                                "</td><td>" + customerList[i].loyalty_points +
+                                "</td><td><a class='btn btn-sm btn-primary' id='addpayment'href=''>Pay</a>" +
+                                "</td><td> <input type='button' class='btn btn-warning btn-sm btn-edit' value='Edit' data-sid=" + customerList[i].id + ">"
+                        }
+                        $('#tbody').html(output);
+                        $('#customerid').val("");
+                        $('#cform')[0].reset();
+                    }
+
+                    if (data.status == 'Not Saved') {
+                        console.log('Unable Submit Data');
+                        $('#customerid').val("");
+                    }
+
+
+
+                }
+            });
+        }
+
+    });
+
+    // Update Customer
+    $('#tbody').on("click", ".btn-edit", function () {
+        console.log("Edit Button Clicked");
+        let id = $(this).attr("data-sid");
+
+        console.log(id);
+
+        mydata = { custid: id }
+
+        $.ajax({
+            url: "{% url 'updateCustomer' %}",
+            method: "POST",
+            data: mydata,
+
+            success: function (data) {
+                console.log(data);
+                $("#customerid").val(data.id);
+                $("#fnameid").val(data.first_name);
+                $("#snameid").val(data.second_name);
+                $("#phoneid").val(data.phone);
+                $("#mailid").val(data.email_address);
+                console.log(data.id);
+
+
+            },
+        })
+    });
+
+    // Delete Customer
+    $('#delbutton').click(function () {
+        console.log("Delete Button Clicked");
+        let id = $('#customerid').val();
+        console.log(id);
+
+        mydata = { custid: id }
+
+        $.ajax({
+            url: "{% url 'customer-delete' %}",
+            method: "POST",
+            data: mydata,
+
+            success: function (data) {
+                console.log(data);
+            },
+        })
+    })
+
+
+</script>

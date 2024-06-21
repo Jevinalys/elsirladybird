@@ -1,0 +1,131 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+    // Save data
+    $('#servicesave').click(function () {
+        output = "";
+        let servid = $('#serviceid').val();
+        let servname = $('#servicenameid').val();
+        let servdesc = $('#descriptionid').val();
+        let servprc = $('#servPriceid').val();
+
+        //console.log(sid);
+
+        if (servname == "") {
+            console.log(servname);
+        } else if (servdesc == "") {
+            console.log(servdesc);
+        } else if (servprc == "") {
+            console.log(servprc);
+        } else {
+
+            console.log(servname);
+            console.log(servdesc);
+            console.log(servprc);
+
+            mydata = { serviceid: servid, service_name: servname, service_description: servdesc, service_price: servprc };
+
+            $.ajax({
+                url: "{% url 'addService' %}",
+                method: "POST",
+                data: mydata,
+
+                success: function (data) {
+                    //console.log(data.status)}
+                    serviceList = data.service_data;
+
+                    if (data.status == 'Data Saved') {
+
+                        console.log('Service Saved successfully');
+
+                        for (i = 1; i < serviceList.length; i++) {
+                            output += "<tr><td>" + serviceList[i].service_name +
+                                "</td><td>" + serviceList[i].service_description +
+                                "</td><td>" + serviceList[i].service_price +
+
+                                "</td><td> <input type='button' class='btn btn-warning btn-sm btn-edit' value='Edit' data-sid=" + serviceList[i].id + ">"
+                        }
+                        $('#tbody').html(output);
+                        $('#serviceid').val("");
+                        $('#sform')[0].reset();
+                    }
+
+                    if (data.status == 'Not Saved') {
+                        console.log('Unable Submit Data');
+                        $('#serviceid').val("");
+                    }
+
+
+
+                }
+            });
+        }
+
+    });
+
+
+    // Update Service
+    $('#tbody').on("click", ".btn-edit", function () {
+        console.log("Edit Button Clicked");
+        let id = $(this).attr("data-sid");
+
+        console.log(id);
+
+        mydata = { servid: id }
+
+        $.ajax({
+            url: "{% url 'updateService' %}",
+            method: "POST",
+            data: mydata,
+
+            success: function (data) {
+                console.log(data);
+                $("#serviceid").val(data.id);
+                $("#servicenameid").val(data.service_name);
+                $("#descriptionid").val(data.service_description);
+                $("#servPriceid").val(data.service_price);
+                console.log(data.id);
+            },
+        })
+
+
+    });
+
+
+    // Delete Service
+    $('#delbutton').click(function () {
+        console.log("Delete Button Clicked");
+        let id = $('#serviceid').val();
+        console.log(id);
+
+        mydata = { servid: id }
+
+        $.ajax({
+            url: "{% url 'service-delete' %}",
+            method: "POST",
+            data: mydata,
+
+            success: function (data) {
+                serviceList = data.service_data;
+
+                if (data.status == 'service deleted') {
+
+                    console.log('Service Deleted successfully');
+
+                    for (i = 1; i < serviceList.length; i++) {
+                        output += "<tr><td>" + serviceList[i].service_name +
+                            "</td><td>" + serviceList[i].service_description +
+                            "</td><td>" + serviceList[i].service_price +
+
+                            "</td><td> <input type='button' class='btn btn-warning btn-sm btn-edit' value='Edit' data-sid=" + serviceList[i].id + ">"
+                    }
+                    $('#tbody').html(output);
+                    $('#serviceid').val("");
+                    $('#sform')[0].reset();
+                }
+            },
+        })
+    });
+
+
+</script>

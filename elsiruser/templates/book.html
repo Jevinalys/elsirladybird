@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+        <!-- Content Start -->
+        <div class="content">
+            <!-- Navbar Start -->
+            <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+                <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+                    <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
+                </a>
+                <a href="#" class="sidebar-toggler flex-shrink-0">
+                    <i class="fa fa-bars"></i>
+                </a>
+                <form class="d-none d-md-flex ms-4">
+                    <input class="form-control border-0" type="search" placeholder="Search">
+                </form>
+            </nav>
+
+
+            
+        <div class="container-fluid pt-4 px-4">
+            <div class="bg-light text-left rounded p-4">
+
+                <div class="card">
+                    <div class="card-body">
+                      <form action="{% url 'book' %}" method="post">
+                       {% csrf_token %}
+                     
+                        <div class="form-group">
+                          <label for="">First Name</label>
+                          <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            name="first_name"
+                            value="{{values.first_name}}"
+                          />
+                        </div>
+                        <div class="form-group">
+                          <label for="">Second Name</label>
+                          <input
+                            type="text"
+                            class="form-control form-control-sm"
+                            name="second_name"
+                            value="{{values.second_name}}"
+                          />
+                        </div>
+                        <div class="form-group">
+                            <label for="">Phone Number</label>
+                            <input
+                              type="text"
+                              class="form-control form-control-sm"
+                              name="phone_number"
+                              value="{{values.phone_number}}"
+                            />
+                        </div>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label for="">Date</label>
+                              <input
+                                type="date"
+                                class="form-control form-control-sm"
+                                name="book_date"
+                                id="book_date"
+                                value="{{values.book_date}}"
+                              />
+                             </div>
+                          </div>
+
+                          <div class="col-md-6">
+                            <label for="">Time</label>
+                            <select class="form-control" id="timeID" name="book_time">
+
+                              <option name="book_time" id="selectedtime"  value="Select time"> Select time </option>
+                              <option name="book_time" id="selectedtime"  value="9AM to 10AM"> 9AM to 10AM </option>
+                              <option name="book_time" id="selectedtime"  value="10AM to 11AM"> 10AM to 11AM </option>
+                              <option name="book_time" id="selectedtime"  value="11AM to 12 NOON"> 11AM to 12 NOON </option>
+                              <option name="book_time" id="selectedtime"  value="12PM to 1PM"> 12PM to 1PM </option>
+                              <option name="book_time" id="selectedtime"  value="1PM to 2PM"> 1PM to 2PM </option>
+                              <option name="book_time" id="selectedtime"  value="2PM to 3PM"> 2PM to 3PM </option>
+                              <option name="book_time" id="selectedtime"  value="3PM to 4PM"> 3PM to 4PM </option>
+                              <option name="book_time" id="selectedtime"  value="4PM to 5PM"> 4PM to 5PM </option>
+                              <option name="book_time" id="selectedtime"  value="5PM to 6PM"> 5PM to 6PM </option>
+                              <option name="book_time" id="selectedtime"  value="6PM to 7PM"> 6PM to 7PM </option>
+                              <option name="book_time" id="selectedtime"  value="7PM to 8PM"> 7PM to 8PM </option>
+
+                              
+                            </select>
+                         </div>
+
+                        </div>
+                  
+                        
+                         <br>
+                        <input
+                          type="submit"
+                          value="Reserve"
+                          class="btn btn-primary btn-primary-sm"
+                        />
+                      </form>
+                    </div>
+                  </div>
+            </div>
+
+            {% include 'ajaxbook.html' %}
+                 
+{% endblock %}
