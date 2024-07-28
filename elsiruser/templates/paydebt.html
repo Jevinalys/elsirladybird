@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+{%include 'sidebar.html' %}
+<!-- Content Start -->
+<div class="content">
+  <!-- Navbar Start -->
+  <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+    <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+      <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
+    </a>
+    <a href="#" class="sidebar-toggler flex-shrink-0">
+      <i class="fa fa-bars"></i>
+    </a>
+    <form class="d-none d-md-flex ms-4">
+      <input class="form-control border-0" type="search" placeholder="Search">
+    </form>
+  </nav>
+
+
+
+  <div class="container-fluid pt-4 px-4">
+    <div class="bg-light text-left rounded p-4">
+
+      <div class="card">
+        <div class="card-body">
+          <div class="row g-2">
+            <div class="col-sm-4 col-xl-3">
+                  <div>
+                      <h4 class="text-center alert alert-danger ">Debt : {{customer.debt}}</h4>
+                  </div>
+              
+            </div>
+
+            <div class="col-sm-4 col-xl-3">
+              <div>
+                  <h4 class="text-center alert alert-info ">Points : {{customer.loyalty_points}}</h4>
+              </div>
+          
+            </div>
+
+   
+          </div>
+           
+          <form action="{% url 'payDebt' customer.id %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="">First Name</label>
+              <input type="text" class="form-control form-control-sm" name="FirstName" value="{{customer.first_name}}" readonly/>
+            <div>
+
+            <div class="form-group">
+              <label for="">Second Name</label>
+              <input type="text" class="form-control form-control-sm" name="SecondName" value="{{customer.second_name}}" readonly/>
+            <div>
+
+              <div class="form-group">
+                <label for="">Phone Number</label>
+                <input type="text" class="form-control form-control-sm" name="Phone" value="{{customer.phone}}" readonly />
+
+
+
+                <div class="form-group">
+                  <label for="serviceprice">Debt</label>
+                  <input type="number" value="{{customer.debt}}" class="form-control form-control-sm" id="serviceprice" name="Debt" readonly />
+
+                </div>
+
+                  <div class="form-group">
+                    <label for="">Payment Mode</label>
+                    <select class="form-control" default="{{values.cash}}" name="payment">
+
+                      <option name="payment" value="{{values.cash}}">Cash</option>
+                      <option name="payment" value="{{values.Mpesa}}">Mpesa </option>
+
+                    </select>
+
+                  </div>
+                  <div class="form-group">
+                    <label for="">Mpesa Code</label>
+                    <input type="text" class="form-control form-control-sm" name="code" value="{{values.code}}" />
+                  </div>
+                  <div class="form-group">
+                    <label for="">Amount</label>
+                    <input type="text" class="form-control form-control-sm" name="amount" value="{{values.amount}}" />
+                  </div>
+                  <br>
+                  <input type="submit" value="Submit" class="btn btn-primary btn-primary-sm" />
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!--<script type="text/javascript" src="{% static 'elsiruser/js/sales.js' %}"></script>-->
+    {% include 'ajaxpay.html' %}
+
+    {% endblock %}

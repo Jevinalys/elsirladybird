@@ -17,6 +17,7 @@
             <input class="form-control border-0" type="search" placeholder="Search">
         </form>
     </nav>
+ 
 
     <!--<div class="container-fluid pt-4 px-4">
 
@@ -42,14 +43,12 @@
 
             <div class="col-sm-3">
                 <h5 class="text-center alert alert-info">Add/Update Service</h5>
+                <div id="flash-notification"></div>
                 <form action="" method="POST" name="sform" id="sform">
-
                     {% csrf_token %}
-
-                    {% include 'messages.html' %}
                     <input type="hidden" name="serviceid" id="serviceid" />
                     {{form.as_p}}
-
+                
                     <input type="button" class="btn btn-success" value="Save" id="servicesave">
                     <input type="button" value="Delete" class="btn btn-danger btn-del" id="delbutton"
                         data-sid="{{service.id}}">
@@ -63,6 +62,7 @@
             <div class="bg-light text-center rounded p-4 col-sm-9">
                 <div class="d-flex align-items-center justify-content-between mb-4">
                     <h6 class="mb-0">Services</h6>
+
                 </div>
 
                 <table class="table table-hover">

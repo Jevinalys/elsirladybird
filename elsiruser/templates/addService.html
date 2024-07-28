@@ -16,16 +16,19 @@
                 <form class="d-none d-md-flex ms-4">
                     <input class="form-control border-0" type="search" placeholder="Search">
                 </form>
+
             </nav>
-     
+
+            
         <div class="container-fluid pt-4 px-4">
             <div class="bg-light text-left rounded p-4">
-
+              
                 <div class="card">
                     <div class="card-body">
                       <form action="{% url 'addService' %}" method="post">
+                        <div id="flash-notification"></div>
                        {% csrf_token %}
-
+                       
                         <div class="form-group">
                           <label for="">Service Name</label>
                           <input
@@ -59,13 +62,12 @@
                         <input
                           type="submit"
                           value="Submit"
+                          id="btnsubmit"
                           class="btn btn-primary btn-primary-sm"
                         />
                       </form>
                     </div>
                   </div>
             </div>
-      
-        
                 
 {% endblock %}

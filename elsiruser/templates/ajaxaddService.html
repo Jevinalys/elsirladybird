@@ -1,0 +1,24 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+    // Select Service
+    $('#btnsubmit').click(function(){
+    let servicename =$("#serviceID").val();
+    
+    console.log("kkkkkkk");
+
+    mydata = {servid:servicename}
+
+    $.ajax({
+        url: "{% url 'updateprice' %}",
+        method:"POST",
+        data:mydata,
+
+        success: function(data){
+            
+        },
+    })
+})
+
+
+</script>

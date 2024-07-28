@@ -31,14 +31,28 @@
                       <h4 class="text-center alert alert-danger ">Debt : {{customer.debt}}</h4>
                   </div>
               
-             </div>
+            </div>
 
-             <div class="col-sm-4 col-xl-3">
+            <div class="col-sm-4 col-xl-3">
               <div>
                   <h4 class="text-center alert alert-info ">Points : {{customer.loyalty_points}}</h4>
               </div>
           
-         </div>
+            </div>
+
+            <div class="col-sm-4 col-xl-3">
+              <div>
+                  <a href="{% url 'payDebt' customer.id %}"><h4 class="text-center alert alert-warning">Pay Debt</h4></a>
+              </div>
+          
+            </div>
+
+            <div class="col-sm-4 col-xl-3">
+              <div>
+                  <a href="{% url 'redeemPoints' customer.id %}"><h4 class="text-center alert alert-danger">Redeem Points</h4></a>
+              </div>
+          
+            </div>
 
           </div>
            

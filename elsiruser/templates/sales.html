@@ -6,52 +6,88 @@
     <!-- Content Start -->
     <div class="content">
         <!-- Navbar Start -->
-        <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+
+        <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-10">
                 <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
                     <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
                 </a>
                 <a href="#" class="sidebar-toggler flex-shrink-0">
                     <i class="fa fa-bars"></i>
                 </a>
-                <form class="d-none d-md-flex ms-4">
-                    <input class="form-control border-0" type="search" placeholder="Search">
+                <form class="d-none d-md-flex ms-4 mt-3">
+                    <input class="form-control border-0" type="search" id="searchField" placeholder="Search">
                 </form>
         </nav>
+
+        {% if messages %}
+        {% for message in messages %}
+
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <strong>{{message}}</strong> 
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+
+        {% endfor %}
+
+      {% endif %}
 
         <div class="container-fluid pt-4 px-4">
             <div class="bg-light text-center rounded p-4">
                 <div class="d-flex align-items-center justify-content-between mb-4">
                     <h6 class="mb-0">Recent Sales</h6>
-                    <a href="">Show All</a>
+                    <h5><a href="{% url 'customers' %}">Make Sales</a></h5>
                 </div>
-                <div class="table-responsive">
-                    <table class="table text-start align-middle table-bordered table-hover mb-0">
-                        <thead>
-                            <tr class="text-dark">
-                                <!--<th scope="col"><input class="form-check-input" type="checkbox"></th>-->
-                                <th scope="col">Customer</th>
-                                <th scope="col">Phone</th>
-                                <th scope="col">Service</th>
-                                <th scope="col">Amount</th>
-                                <th scope="col">Date</th>
-                                <th scope="col">Details</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for sale in page_obj %}
-                            <tr>
-                                <!--<td><input class="form-check-input" type="checkbox"></td>-->
-                                <td>{{sale.customer_name}}</td>
-                                <td>{{sale.phone}}</td>
-                                <td>{{sale.services}}</td>
-                                <td>{{sale.amount}}</td>
-                                <td>{{sale.date_paid}}</td>
-                                <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
-                            </tr>
-                            {% endfor %}
+                <div class="app-table">
+                    <div class="table-responsive">
+                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+                            <thead>
+                                <tr class="text-dark">
+                                    <!--<th scope="col"><input class="form-check-input" type="checkbox"></th>-->
+                                    <th scope="col">Phone</th>
+                                    <th scope="col">Service</th>
+                                    <th scope="col">Amount</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Details</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for sale in page_obj %}
+                                <tr>
+                                    <!--<td><input class="form-check-input" type="checkbox"></td>-->
+                                    <td>{{sale.phone}}</td>
+                                    <td>{{sale.services}}</td>
+                                    <td>{{sale.amount}}</td>
+                                    <td>{{sale.date_paid}}</td>
+                                    <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+                                </tr>
+                                {% endfor %}
+    
+                            </tbody>
+                        </table>
+                    </div>
 
-                        </tbody>
-                    </table>
+                </div>
+
+                <p class="no-results" style="display: none;">No results </p>
+
+                <div class="table-output">
+                    <div class="table-responsive">
+                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+                            <thead>
+                                <tr class="text-dark">
+                                    <!--<th scope="col"><input class="form-check-input" type="checkbox"></th>-->
+                                    <th scope="col">Phone</th>
+                                    <th scope="col">Service</th>
+                                    <th scope="col">Amount</th>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Details</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-body">
+                               
+                            </tbody>    
+                        </table>
+                    </div>
                 </div>
             </div>
 
@@ -93,6 +129,7 @@
 
     
         <script src="{% static 'elsiruser/js/stat.js' %}"></script>
+        <script src="{% static 'elsiruser/js/searchSales.js' %}"></script>
               
                 
 {% endblock %}

@@ -2,6 +2,10 @@ const renderChart=(data,labels)=>{
 
   const ctx = document.getElementById('myChart');
 
+const backgroundColors = data.map(() => `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 0.2)`);
+const borderColors = data.map(() => `rgba(${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, ${Math.floor(Math.random() * 255)}, 1)`);
+
+
 new Chart(ctx, {
   type: 'bar',
   data: {
@@ -9,6 +13,8 @@ new Chart(ctx, {
     datasets: [{
       label: 'Sales per Service',
       data: data,
+      backgroundColor: backgroundColors,
+      borderColor: borderColors,
       borderWidth: 1
     }]
   },

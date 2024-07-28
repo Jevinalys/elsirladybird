@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 validate-email = "*"
 six = "*"
+xlwt = "*"
+weasyprint = "*"
 
 [dev-packages]
 

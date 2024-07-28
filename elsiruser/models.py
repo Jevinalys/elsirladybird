@@ -1,6 +1,6 @@
 from django.db import models
-from datetime import date
-from django.utils.timezone import now
+from django.utils import timezone
+import datetime
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 # Create your models here.
@@ -17,7 +17,8 @@ class Customer(models.Model):
     phone = models.CharField(max_length=12)
     email_address =models.EmailField(null=True,blank=True)
     debt = models.IntegerField(null=True, blank=True,default=0)
-    loyalty_points = models.IntegerField(null=True, blank=True,default=0)
+    loyalty_points = models.FloatField(null=True, blank=True,default=0)
+ 
 
     def __str__(self):
         return str(self.first_name) +' '+ str(self.second_name)
@@ -42,6 +43,7 @@ class Product(models.Model):
     total_units = models.IntegerField(null=True)
     unit_buying_price= models.IntegerField(null=True)
     unit_selling_price= models.IntegerField(null=True)
+    
 
     def __str__(self):
        return self.product_name
@@ -50,6 +52,7 @@ class Service(models.Model):
     service_name = models.CharField(max_length=266)
     service_description = models.CharField(max_length=266, null=True)
     service_price = models.IntegerField(null=True)
+    
 
     def __str__(self):
        return self.service_name
@@ -72,7 +75,8 @@ class Sale(models.Model):
     )
     mpesa_code = models.CharField(max_length=255, null=True)
     amount = models.DecimalField(max_digits=40, decimal_places=2,default=0)
-    date_paid = models.DateTimeField(auto_now_add=True)
+    date_paid = models.DateTimeField(default=timezone.now)
+    
 
     def __str__(self):
         return str(self.date_paid)

@@ -94,6 +94,7 @@
 
     // Delete Service
     $('#delbutton').click(function () {
+        output=""
         console.log("Delete Button Clicked");
         let id = $('#serviceid').val();
         console.log(id);
@@ -110,8 +111,18 @@
 
                 if (data.status == 'service deleted') {
 
-                    console.log('Service Deleted successfully');
-
+                $("#flash-notification").html(
+                `
+                <div class="alert alert-warning" role="warning">
+                    Service Deleted
+                                </div>
+                    `
+                        )
+                        
+                        setInterval(function(){
+                            $('#flash-notification').fadeOut();
+                        },2000);
+        
                     for (i = 1; i < serviceList.length; i++) {
                         output += "<tr><td>" + serviceList[i].service_name +
                             "</td><td>" + serviceList[i].service_description +

@@ -25,6 +25,7 @@
                     <div class="card-body">
                       <form action="{% url 'addCustomer' %}" method="post">
                        {% csrf_token %}
+                       {% include 'messages.html' %}
 
                         <div class="form-group">
                           <label for="">First Name</label>

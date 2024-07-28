@@ -6,15 +6,15 @@
 <!-- Content Start -->
 <div class="content">
     <!-- Navbar Start -->
-    <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
+    <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-10">
         <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
             <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
         </a>
         <a href="#" class="sidebar-toggler flex-shrink-0">
             <i class="fa fa-bars"></i>
         </a>
-        <form class="d-none d-md-flex ms-4">
-            <input class="form-control border-0" type="search" placeholder="Search">
+        <form class="d-none d-md-flex mt-3 ms-4">
+            <input class="form-control border-0" id="searchField" type="search" placeholder="Search">
         </form>
     </nav>
 
@@ -25,10 +25,9 @@
 
             <div class="col-sm-3">
                 <h5 class="text-center alert alert-info">Add/Update Customer</h5>
+                <div id="flash-notification"></div>
                 <form action="" method="POST" name="cform" id="cform">
                     {% csrf_token %}
-
-                    {% include 'messages.html' %}
                     <input type="hidden" name="customerid" id="customerid" />
                     {{form.as_p}}
 
@@ -44,41 +43,67 @@
             <div class="bg-light text-center rounded p-4 col-sm-9">
                 <div class="d-flex align-items-center justify-content-between mb-4">
                         <h6 class="mb-0">Customers</h6>
-                        <a href="">Show All</a>
+                        <a href="{% url 'customer-excel' %}" class="btn btn-primary">Download</a>
                     </div>
 
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">Name1</th>
-                                <th scope="col">Name2</th>
-                                <th scope="col">Phone</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Debt</th>
-                                <th scope="col">Points</th>
-                                <th scope="col">Action</th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbody">
-                            {% for customer in page_obj %}
-                            <tr>
-                                <td>{{customer.first_name}}</td>
-                                <td>{{customer.second_name}}</td>
-                                <td>{{customer.phone}}</td>
-                                <td>{{customer.email_address}}</td>
-                                <td>{{customer.debt}}</td>
-                                <td>{{customer.loyalty_points}}</td>
-                                <td><a class="btn btn-sm btn-primary" id="addpayment" href="{% url 'addSales' customer.id %}" >Pay</a></td>
-                                <!--<td> <input type="button" value="Pay" class="btn btn-sm btn-success" data-sid="{{customer.id}}"></td>-->
-                                   <td> <input type="button" value="Edit" class="btn btn-warning btn-sm btn-edit" data-sid="{{customer.id}}"></td>
-                            </tr>
+                    <div class="app-table" >
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name1</th>
+                                    <th scope="col">Name2</th>
+                                    <th scope="col">Phone</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Debt</th>
+                                    <th scope="col">Points</th>
+                                    <th scope="col">Action</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody">
+                                {% for customer in page_obj %}
+                                <tr>
+                                    <td>{{customer.first_name}}</td>
+                                    <td>{{customer.second_name}}</td>
+                                    <td>{{customer.phone}}</td>
+                                    <td>{{customer.email_address}}</td>
+                                    <td>{{customer.debt}}</td>
+                                    <td>{{customer.loyalty_points}}</td>
+                                    <td><a class="btn btn-sm btn-primary" id="addpayment" href="{% url 'addSales' customer.id %}" >Pay</a></td>
+                                    <!--<td> <input type="button" value="Pay" class="btn btn-sm btn-success" data-sid="{{customer.id}}"></td>-->
+                                       <td> <input type="button" value="Edit" class="btn btn-warning btn-sm btn-edit" data-sid="{{customer.id}}"></td>
+                                </tr>
+        
+                                {% endfor %}
+                            </tbody>
+                        </table>
+
+                    </div>
+
+
+                    <div class="table-output">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name1</th>
+                                    <th scope="col">Name2</th>
+                                    <th scope="col">Phone</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Debt</th>
+                                    <th scope="col">Points</th>
+                                    <th scope="col">Action</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-body" id="tbody">
+
+                            </tbody>
+        
+                        </table>
     
-    
-                            {% endfor %}
-                        </tbody>
-    
-                    </table>
+                    </div>
+
+                    <p class="no-results" style="display: none;">No results </p>
 
                     <div class="pagination-container pt-2">
                         <div class="row">
@@ -170,5 +195,6 @@
     
 
     {% include 'ajaxcustomer.html' %}
+    <script src="{% static 'elsiruser/js/searchCustomer.js' %}"></script>
 
     {% endblock %}

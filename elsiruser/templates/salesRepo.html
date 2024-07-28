@@ -18,7 +18,139 @@
                 </form>
             </nav>
 
+            <div class="container-fluid pt-3 px-3">
+                <div class="row g-3">
+                    <div class="col-sm-4 col-xl-3">
+                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                            <i class="fa fa-chart-line fa-3x text-primary"></i>
+                            <div class="ms-3">
+                                <p class="mb-2">{{dispmonth}} Total Sales</p>
+                                <h6 class="mb-0">{{ total_sales_current_month }}</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                            <i class="fa fa-chart-bar fa-3x text-primary"></i>
+                            <div class="ms-3">
+                                <p class="mb-2"> Total Debts</p>
+                                <h6 class="mb-0">{{ total_debt}}</h6>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-xl-6">
+                        <div class="bg-light rounded d-flex align-items-center justify-content-between p-2">
+                            <form action="" method="GET">
+                                {% csrf_token%}
+                                <div class="row">
+                                
+                                    <div class="col-sm-5">
+                                        <div class="form-group">
+                                          <label class="mb-1" for="">From : </label>
+                                           {{myFilter.form.fromdate}}
+                                        </div>
+                                    </div>
+    
+                                    <div class="col-md-5">
+                                        <div class="form-group">
+                                          <label class="mb-1" for="">To : </label>
+                                          {{myFilter.form.todate}}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <br class="mb-1">
+                                        <button class="btn btn-primary btn-primary-sm" type="submit">Search</button>
+                        
+                                    </div>
+                                </div>
+    
+                            </form>
+    
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+            </div>
+
             <div class="container-fluid pt-4 px-4">
+
+                <div class="bg-light text-center rounded p-4">
+                    
+                        <div class="col-md-12">
+                            <div class="d-flex align-items-center justify-content-between mb-4">
+                                <h6 class="mb-0">Sales</h6>
+                                <a href="{% url 'export-excel' %}" class="btn btn-primary">Download</a>
+                            </div>
+
+                        </div>
+
+                      
+
+                    
+
+                    <div class="app-table">
+                        <div class="table-responsive">
+                            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                                <thead>
+                                    <tr class="text-dark">
+                                        <!--<th scope="col"><input class="form-check-input" type="checkbox"></th>-->
+                                        <th scope="col">Name1</th>
+                                        <th scope="col">Name2</th>
+                                        <th scope="col">Phone</th>
+                                        <th scope="col">Service</th>
+                                        <th scope="col">Paid</th>
+                                        <th scope="col">Debt</th>
+                                        <th scope="col">Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for sale in page_obj %}
+                                    <tr>
+                                        <!--<td><input class="form-check-input" type="checkbox"></td>-->
+                                        <td>{{sale.customer_name.first_name}}</td>
+                                        <td>{{sale.customer_name.second_name}}</td>
+                                        <td>{{sale.phone}}</td>
+                                        <td>{{sale.services}}</td>
+                                        <td>{{sale.amount}}</td>
+                                        <td>{{sale.customer_name.debt}}</td>
+                                        <td>{{sale.date_paid}}</td>
+                                    </tr>
+                                    {% endfor %}
+        
+                                </tbody>
+                            </table>
+                        </div>
+    
+                    </div>
+    
+                    <div class="pagination-container pt-2">
+                        <div class="row">
+            
+                            <div class="col-md-9">
+                                Showing page {{page_obj.number}} of {{ page_obj.paginator.num_pages }}
+                            </div>
+                            <ul class="pagination align-right float-right mr-auto , col-md-3">
+                                {% if page_obj.has_previous %}
+                                <li {% if page_obj.number == 1 %} class="page-item active" {% endif %}><a class="page-link" href="?page=1">&laquo; 1</a></li>
+                                <li class="page-item"> <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a></li>
+                                {% endif %}
+                        
+                                {% if page_obj.has_next %}
+                                <li class="page-item"> <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+                                <li class="page-item"> <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">{{ page_obj.paginator.num_pages}} &raquo;</a></li>
+                                {% endif %}
+                                </ul>
+        
+                        </div>
+            
+                    </div>
+    
+                
+            </div>
 
                 
 {% endblock %}

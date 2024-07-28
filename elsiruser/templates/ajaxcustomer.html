@@ -13,11 +13,38 @@
         //console.log(sid);
 
         if (fname == "") {
-            console.log("Please Enter First Name");
+            $("#flash-notification").html(
+                `
+                <div class="alert alert-warning" role="warning">
+                    First name is Required
+                    </div>
+           `
+            )
+            setInterval(function(){
+                $('#flash-notification').fadeOut();
+            },2000);
         } else if (sname == "") {
-            console.log("Please Enter Second Name");
+            $("#flash-notification").html(
+                `
+                <div class="alert alert-warning" role="warning">
+                    Second name is Required
+                    </div>
+           `
+            )
+            setInterval(function(){
+                $('#flash-notification').fadeOut();
+            },2000);
         } else if (phone == "") {
-            console.log("Please Enter Phone Number");
+            $("#flash-notification").html(
+                `
+                <div class="alert alert-warning" role="warning">
+                    Phone number Required
+                    </div>
+           `
+            )
+            setInterval(function(){
+                $('#flash-notification').fadeOut();
+            },2000);
         } else {
             console.log(fname);
 
@@ -33,9 +60,19 @@
                     customerList = data.customer_data;
 
                     if (data.status == 'Data Saved') {
-                        console.log('Customer Saved successfully');
+                        $("#flash-notification").html(
+        
+                                `
+                                  <div class="alert alert-success" role="success">
+                                    Name saved successfully
+                                    </div>
+                               `
+                            )
+                            setInterval(function(){
+                                $('#flash-notification').fadeOut();
+                            },2000);
 
-                        for (i = 1; i < customerList.length; i++) {
+                        for (i = 1; i < customerList.length; i++)  {
                             output += "<tr><td>" + customerList[i].first_name +
                                 "</td><td>" + customerList[i].second_name +
                                 "</td><td>" + customerList[i].phone +
@@ -67,8 +104,6 @@
     $('#tbody').on("click", ".btn-edit", function () {
         console.log("Edit Button Clicked");
         let id = $(this).attr("data-sid");
-
-        console.log(id);
 
         mydata = { custid: id }
 

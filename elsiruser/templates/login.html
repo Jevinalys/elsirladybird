@@ -23,10 +23,10 @@
         
                     {% endif %}
                         <div class="d-flex align-items-center justify-content-between mb-3">
-                            <a href="index.html" class="">
+                            <a href="{% url 'index'%}" class="">
                                 <h3 class="text-primary"><i></i>Home</h3>
                             </a>
-                            <h3>Log In</h3>
+                           
                         </div>
                         <form method="POST" action="{% url 'login'%}">
                             {% csrf_token %}
@@ -44,7 +44,7 @@
                             </div>
                             <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Log In</button>
                         </form>
-                        <p class="text-center mb-0">Don't have an Account? <a href="{% url 'register' %}">Sign Up</a></p>
+                        <p class="text-center mb-0">Don't have an Account? <a href="{% url 'register_user' %}">Sign Up</a></p>
 
                     </div>
                 </div>

@@ -1,4 +1,5 @@
 import os
+import django_heroku
 """
 Django settings for elsir project.
 
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'elsiruser',
+    'django_filters', 
 ]
 
 MIDDLEWARE = [
@@ -79,6 +81,12 @@ WSGI_APPLICATION = 'elsir.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
+        #'ENGINE': 'django.db.backends.postgresql',
+        #'NAME':Ladybirddb,
+        #'USER':'postgres',
+        #'PASSWORD':'Jay24/7365',
+        #'HOST':'localhost',
+
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }

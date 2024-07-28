@@ -25,12 +25,9 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
         
-        
                     {% endfor %}
     
                 {% endif %}
-    
-    
     
                 <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item dropdown">
@@ -89,7 +86,7 @@
                     </div>
                     <div class="col-sm-6 col-xl-3">
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
-                            <i class="fa fa-chart-area fa-3x text-primary"></i>
+                            <i class="fa fa-users fa-3x text-primary"></i>
                             <div class="ms-3">
                                 <p class="mb-2">Total Customers</p>
                                 <h6 class="mb-0">{{ customers }}</h6>
@@ -98,14 +95,12 @@
                     </div>
                     <div class="col-sm-6 col-xl-3">
                         <div class="bg-light rounded d-flex align-items-center justify-content-between p-4">
+                            <i class="fa fa-shopping-cart fa-3x text-primary"></i>
                             <ol class="breadcrumb"> 
-                                <li class="breadcrumb-item">Sales</li>                             
+                                <a href="{% url 'customers' %}"><li class="breadcrumb-item"> Make Sales</li></a>                             
                             </ol>
                             <div class="ms-3">
-                                <nav aria-label="breadcrumb">
-                             
-                                    <a href="{% url 'customers' %}"> <button type="button" class="btn btn-primary">Add Sales</button> </a>                                 
-                                </nav>
+                    
                             </div>
                         </div>
                     </div>
@@ -113,7 +108,45 @@
             </div>
             <!-- Sale & Revenue End -->
 
-                        <!-- Sales Chart End -->
+            <div class="container mt-4">
+                <div class="row">
+                    <div class="col-md-10">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <h4>Last 30 Days Sales Summary</h4>
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
+            
+                </div>
+            
+                <div class="row">
+                    <div class="col-md-6">
+                        <canvas id="myChart" width="400" height="200"></canvas>
+                    </div>
+                    <div class="col-md-2">
+                    </div>
+            
+                </div>
+            </div>
+
+                        <!-- Sales Chart Start
+                        <div class="container-fluid pt-4 px-4">
+                            <div class="row g-4">
+                                <div class="col-sm-12 col-xl-6">
+                                    <div class="bg-light text-center rounded p-4">
+                                        <div class="d-flex align-items-center justify-content-between mb-4">
+                                            <h6 class="mb-0">Sales in </h6>
+                                            <a href="">Show All</a>
+                                        </div>
+                                        
+                                        <canvas id="myChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>-->
 
 
             <!-- Recent Sales Start -->
@@ -133,7 +166,6 @@
                                     <th scope="col">Service</th>
                                     <th scope="col">Amount</th>
                                     <th scope="col">Date</th>
-                                    <th scope="col">Details</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -145,7 +177,7 @@
                                     <td>{{sale.services}}</td>
                                     <td>{{sale.amount}}</td>
                                     <td>{{sale.date_paid}}</td>
-                                    <td><a class="btn btn-sm btn-primary" href="">Detail</a></td>
+                                    <!--<td><a class="btn btn-sm btn-primary" href="">Detail</a></td>-->
                                 </tr>
                                 {% endfor %}
 
@@ -182,33 +214,6 @@
 
             
             <!-- Recent Sales End -->
-
-
-            <!-- Sales Chart Start -->
-            <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-light text-center rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">Sales in </h6>
-                                <a href="">Show All</a>
-                            </div>
-                            
-                            <canvas id="myChart"></canvas>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-light text-center rounded p-4">
-                            <div class="d-flex align-items-center justify-content-between mb-4">
-                                <h6 class="mb-0">Monthly Sales Distribution</h6>
-                                <a href="">Show All</a>
-                            </div>
-
-                            <canvas id="myChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <script src="{% static 'elsiruser/js/stats.js' %}"></script>
             
